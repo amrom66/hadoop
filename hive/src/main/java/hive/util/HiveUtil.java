@@ -8,11 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * hive连接工具类
+ * hive工具类
  */
 public class HiveUtil {
     private static final Logger log = LoggerFactory.getLogger(HiveUtil.class);
-    private static final String url = "jdbc:hive2://192.168.220.130:10000";
+    private static final String url = "jdbc:hive2://172.16.23.190:10000";
+
     private static final String driverName = "org.apache.hive.jdbc.HiveDriver";
     private static String user = "ljbao" ;
     private static String password = "" ;
@@ -38,6 +39,7 @@ public class HiveUtil {
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         HiveUtil hiveUtil = new HiveUtil();
+        hiveUtil.createTable("ljbao3");
     }
 
     /**
@@ -186,12 +188,12 @@ public class HiveUtil {
 
     /**
      * 建表不指定数据库
-     * @param stmt
      * @param tableName
      * @throws SQLException
      */
-    private boolean createTable(Statement stmt, String tableName)
+    private boolean createTable(String tableName)
             throws SQLException {
+        Statement stmt = conn.createStatement();
         sql = "create table "
                 + tableName
                 + " (key int, value string)  row format delimited fields terminated by '\t'";
