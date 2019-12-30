@@ -4,7 +4,7 @@ import org.apache.hadoop.hive.ql.parse.*;
 import org.apache.hadoop.hive.ql.session.SessionState;
 
 /**
- *  * Created by Ganymede on
+ *  * Created by Ganymede o
  *  * 限制了超级管理员权限，普通用户不能授权、建库、建表等操作
  *   */
 public class HiveAdmin extends AbstractSemanticAnalyzerHook {
