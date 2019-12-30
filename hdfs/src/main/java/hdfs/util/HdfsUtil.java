@@ -1,10 +1,8 @@
 package hdfs.util;
 
-import com.jcraft.jsch.JSch;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.security.UserGroupInformation;
 import org.apache.log4j.Logger;
 
 import java.io.*;
@@ -23,7 +21,7 @@ public class HdfsUtil {
             conf.set("dfs.umask","002");
             conf.set("fs.defaultFS", url);
             conf.set("dfs.permissions","false");
-            System.setProperty("HADOOP_USER_NAME","root");
+            System.setProperty("HADOOP_USER_NAME","ljbao");
             fileSystem=FileSystem.get(conf);
         } catch(Exception e){
             e.printStackTrace();
@@ -55,7 +53,7 @@ public class HdfsUtil {
 
     public static void main(String[] args) throws IOException {
         HdfsUtil hdfsUtil = new HdfsUtil();
-        hdfsUtil.mkdir("/tmp/ljbao5");
+        hdfsUtil.mkdir("/user/ljbao/ljbao1");
     }
 
 }

@@ -3,6 +3,7 @@ package hive.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,9 +38,50 @@ public class HiveUtil {
         }
     }
 
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+    public static Connection getConn(){
+        return conn;
+    }
+
+    public static void main(String[] args) throws SQLException, ClassNotFoundException, IOException {
         HiveUtil hiveUtil = new HiveUtil();
-        hiveUtil.createTable("ljbao3");
+
+        String delField = "create TABLE  ljbao.table_zq2 ("
+                + "ID BIGINT, text_ string  COMMENT '不定长字符串', update_time TIMESTAMP,"
+                + "varchar_ CHAR(20)  COMMENT '不定长字符串', int_ INT  COMMENT '不定长字符串', "
+                + "double_ DOUBLE  COMMENT '不定长字符串', date_day TIMESTAMP  COMMENT '不定长字符串', "
+                + "date_ date  COMMENT '不定长字符串', datetime_ TIMESTAMP  COMMENT '不定长字符串', "
+                + "bool_ boolean  COMMENT '不定长字符串') "
+                + "COMMENT 'table_zq_ft' "
+//					+ "partitioned by(update_time TIMESTAMP) " //分区
+                + "clustered by (ID) into 100 buckets " //分桶
+//					+ "ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe' " //指定序列化
+//					+ "ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.MetadataTypedColumnsetSerDe' " //指定序列化
+                + "stored as orc "
+                + "location '/user/ljbao/table_zq' "//格式
+//					+ "INPUTFORMAT 'org.apache.hadoop.hive.contrib.fileformat.base64.Base64TextInputFormat' "
+//					+ "OUTPUTFORMAT 'org.apache.hadoop.hive.contrib.fileformat.base64.Base64TextOutputFormat' "
+                + "tblproperties('transactional'='true')";//开启事物
+
+        String delField2 = "ALTER TABLE  ljbao.table_zq REPLACE COLUMNS("
+					+ "ID BIGINT, text_ string  COMMENT '不定长字符串', "
+					+ "varchar_ CHAR(20)  COMMENT '不定长字符串', int_ INT  COMMENT '不定长字符串', "
+					+ "double_ DOUBLE  COMMENT '不定长字符串', date_day TIMESTAMP  COMMENT '不定长字符串', "
+					+ "date_ date  COMMENT '不定长字符串', datetime_ TIMESTAMP  COMMENT '不定长字符串')";//字段替换
+        conn.createStatement().execute(delField2);
+
+    }
+
+    /**
+     * 创建用户
+     */
+    public void createUser(String userName) throws SQLException {
+        Statement statement = conn.createStatement();
+
+    }
+
+    public void createTable() throws SQLException {
+        Statement statement = conn.createStatement();
+
     }
 
     /**
@@ -153,7 +195,7 @@ public class HiveUtil {
     }
 
     /**
-     * 查看建表语句
+     * 查看表信息
      * @param stmt
      * @param tableName
      * @throws SQLException
