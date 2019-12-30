@@ -14,7 +14,7 @@ import java.io.*;
  */
 public class HdfsUtil {
     private static final Logger log = Logger.getLogger(HdfsUtil.class);
-    private static final String url = "hdfs://192.168.220.130:9000";
+    private static final String url = "hdfs://172.16.23.190:9000";
     private static Configuration conf = null; //配置文件
     private static FileSystem fileSystem = null;
     static {
@@ -42,7 +42,7 @@ public class HdfsUtil {
 
     /**
      * 改变文件权限
-     * @param path 路径 Path p = new Path("/hh");
+     * @param path 文件路径 Path p = new Path("/hh");
      * @param userName 新用户名称
      * @param groupName 新用户组
      * @throws IOException
@@ -54,7 +54,8 @@ public class HdfsUtil {
 
 
     public static void main(String[] args) throws IOException {
-
+        HdfsUtil hdfsUtil = new HdfsUtil();
+        hdfsUtil.mkdir("/tmp/ljbao5");
     }
 
 }
