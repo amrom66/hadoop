@@ -1,9 +1,18 @@
 package hive.util;
 
 import hive.entity.Table;
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.hive.conf.HiveConf;
+import org.apache.hadoop.hive.metastore.IMetaStoreClient;
+import org.apache.hadoop.hive.metastore.RetryingMetaStoreClient;
 import org.apache.hadoop.hive.metastore.TableType;
+import org.apache.hadoop.hive.metastore.api.ThriftHiveMetastore;
+import org.apache.hadoop.hive.metastore.hbase.HbaseMetastoreProto;
+import org.apache.hadoop.hive.ql.metadata.Hive;
+import org.apache.hadoop.hive.ql.metadata.HiveException;
 import org.apache.hadoop.hive.ql.metadata.Partition;
 import org.apache.log4j.Logger;
+import org.apache.thrift.TException;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -132,16 +141,24 @@ public class TBUtil {
         return list;
     }
 
-    public static void main(String[] args) {
+
+
+
+    public static void main(String[] args) throws HiveException, TException {
         TBUtil tbUtil = new TBUtil();
         System.out.println( );
 
-        org.apache.hadoop.hive.ql.metadata.Table table =
-                new org.apache.hadoop.hive.ql.metadata.Table("ljbao","employee6");
-        List list = new ArrayList();
-        list.add("name");
-        list.add("salay");
-        table.setFields(list);
+        HiveConf hiveConf = new HiveConf();
+        hiveConf.addResource("C:\\Users\\User\\IdeaProjects\\hadoop\\hive\\src\\main\\resources\\hive-site.xml");
+        System.out.println(hiveConf.getAllProperties());
+
+        IMetaStoreClient client = RetryingMetaStoreClient.getProxy(hiveConf,true);
+
+        List list = client.getAllDatabases();
+        System.out.println(list);
+
+
+
     }
 
 }
