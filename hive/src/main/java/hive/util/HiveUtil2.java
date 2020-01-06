@@ -88,6 +88,12 @@ public class HiveUtil2 {
         return false;
     }
 
+    public boolean createTable(){
+
+
+        return false;
+    }
+
     /**
      * 获得约束信息集合
      * @param db 数据库

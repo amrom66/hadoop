@@ -13,7 +13,8 @@ import java.util.List;
  */
 public class HiveUtil {
     private static final Logger log = LoggerFactory.getLogger(HiveUtil.class);
-    private static final String url = "jdbc:hive2://172.16.23.190:10000";
+//    private static final String url = "jdbc:hive2://172.16.23.190:10000";
+    private static final String url = "jdbc:hive2://127.0.0.1:10000";
 
     private static final String driverName = "org.apache.hive.jdbc.HiveDriver";
     private static String user = "ljbao" ;
@@ -28,7 +29,7 @@ public class HiveUtil {
     static {
         try {
             Class.forName(driverName);
-            conn = DriverManager.getConnection(url, user, password);
+            conn = DriverManager.getConnection(url);
             log.info("连接已经建立");
             log.info("连接的url = " + url);
             log.info("当前用户 = " + user);
@@ -62,13 +63,13 @@ public class HiveUtil {
 //					+ "OUTPUTFORMAT 'org.apache.hadoop.hive.contrib.fileformat.base64.Base64TextOutputFormat' "
                 + "tblproperties('transactional'='true')";//开启事物
 
-        String delField2 = "ALTER TABLE  ljbao.table_zq REPLACE COLUMNS("
-					+ "ID BIGINT, text_ string  COMMENT '不定长字符串', "
-					+ "varchar_ CHAR(20)  COMMENT '不定长字符串', int_ INT  COMMENT '不定长字符串', "
-					+ "double_ DOUBLE  COMMENT '不定长字符串', date_day TIMESTAMP  COMMENT '不定长字符串', "
-					+ "date_ date  COMMENT '不定长字符串', datetime_ TIMESTAMP  COMMENT '不定长字符串')";//字段替换
-        conn.createStatement().execute(delField2);
-
+//        String delField2 = "ALTER TABLE  ljbao.table_zq REPLACE COLUMNS("
+//					+ "ID BIGINT, text_ string  COMMENT '不定长字符串', "
+//					+ "varchar_ CHAR(20)  COMMENT '不定长字符串', int_ INT  COMMENT '不定长字符串', "
+//					+ "double_ DOUBLE  COMMENT '不定长字符串', date_day TIMESTAMP  COMMENT '不定长字符串', "
+//					+ "date_ date  COMMENT '不定长字符串', datetime_ TIMESTAMP  COMMENT '不定长字符串')";//字段替换
+//        conn.createStatement().execute(delField2);
+        hiveUtil.countData("linjb01");
     }
 
     /**
