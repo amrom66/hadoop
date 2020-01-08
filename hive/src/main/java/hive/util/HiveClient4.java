@@ -10,15 +10,13 @@ import org.junit.Test;
 import org.slf4j.Logger;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class HiveClient {
+public class HiveClient4 {
     protected final Logger logger = org.slf4j.LoggerFactory.getLogger(this.getClass());
     static IMetaStoreClient client;
 
-    public HiveClient() {
+    public HiveClient4() {
         try {
             HiveConf hiveConf = new HiveConf();
             hiveConf.addResource("C:\\Users\\User\\IdeaProjects\\hadoop\\hive\\src\\main\\resources\\hive-site.xml");
@@ -97,7 +95,7 @@ public class HiveClient {
 //        table.setParameters(map);
 
 //        Table table = client.getTable("ljbao","employees2");
-        HiveClient hiveClient = new HiveClient();
+        HiveClient4 hiveClient = new HiveClient4();
         List list = client.getAllTables("emp");
         System.out.println(list);
 //        client.createTable(table);

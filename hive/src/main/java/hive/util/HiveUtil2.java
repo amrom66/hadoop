@@ -1,17 +1,12 @@
 package hive.util;
 
-import com.google.inject.internal.asm.$Attribute;
-import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.hive.conf.HiveConf;
 import org.apache.hadoop.hive.metastore.HiveMetaStoreClient;
 import org.apache.hadoop.hive.metastore.IMetaStoreClient;
-import org.apache.hadoop.hive.metastore.RetryingMetaStoreClient;
-import org.apache.hadoop.hive.metastore.Warehouse;
 import org.apache.hadoop.hive.metastore.api.*;
 import org.apache.log4j.Logger;
 import org.apache.thrift.TException;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +15,7 @@ import java.util.Map;
  * 原理：访问元数据库metastore
  */
 public class HiveUtil2 {
-    private static final Logger logger = org.apache.log4j.Logger.getLogger(HiveClient.class);
+    private static final Logger logger = org.apache.log4j.Logger.getLogger(HiveClient4.class);
     private static final String url = "jdbc:hive2://172.16.23.190:10000";
     private static final String driverName = "org.apache.hive.jdbc.HiveDriver";
 
