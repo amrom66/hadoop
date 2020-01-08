@@ -1,13 +1,13 @@
 package hive.util;
 
 import com.google.inject.internal.asm.$Attribute;
+import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.hive.conf.HiveConf;
+import org.apache.hadoop.hive.metastore.HiveMetaStoreClient;
 import org.apache.hadoop.hive.metastore.IMetaStoreClient;
 import org.apache.hadoop.hive.metastore.RetryingMetaStoreClient;
-import org.apache.hadoop.hive.metastore.api.Database;
-import org.apache.hadoop.hive.metastore.api.FieldSchema;
-import org.apache.hadoop.hive.metastore.api.MetaException;
-import org.apache.hadoop.hive.metastore.api.Role;
+import org.apache.hadoop.hive.metastore.Warehouse;
+import org.apache.hadoop.hive.metastore.api.*;
 import org.apache.log4j.Logger;
 import org.apache.thrift.TException;
 
@@ -21,20 +21,20 @@ import java.util.Map;
  */
 public class HiveUtil2 {
     private static final Logger logger = org.apache.log4j.Logger.getLogger(HiveClient.class);
+    private static final String url = "jdbc:hive2://172.16.23.190:10000";
+    private static final String driverName = "org.apache.hive.jdbc.HiveDriver";
+
     private static IMetaStoreClient client;
 
-    /**
-     * 初始化，建立client
-     */
-    static {
-        try {
-            HiveConf hiveConf = new HiveConf();
-            hiveConf.addResource("C:\\Users\\User\\IdeaProjects\\hadoop\\hive\\src\\main\\resources\\hive-site.xml");
-            client = RetryingMetaStoreClient.getProxy(hiveConf,true);
-        } catch (MetaException ex) {
-            logger.error(ex.getMessage());
-        }
+    private static HiveMetaStoreClient hiveMetaStoreClient;
+
+    public static void main(String[] args) throws TException {
+        HiveConf hiveConf = new HiveConf();
+        hiveConf.addResource("hive-site.xml");
+        hiveMetaStoreClient = new HiveMetaStoreClient(hiveConf);
+        hiveMetaStoreClient.close();
     }
+
 
     /**
      * 获取所有数据库
@@ -90,7 +90,6 @@ public class HiveUtil2 {
 
     public boolean createTable(){
 
-
         return false;
     }
 
@@ -141,15 +140,5 @@ public class HiveUtil2 {
         return location;
     }
 
-    public static void main(String[] args) throws TException {
-        HiveClient hiveClient = new HiveClient();
-//        Database database = new Database("employee6","meiyou miaoshu ",null, null);
-//        client.close();
-//        Role role = new Role("myrole5",1577772926,"ljbao");
-//        client.create_role(role);
-//        List l = hiveClient.getAllDatabases();
-//        System.out.println(l);
-//        List roles = client.listRoleNWames();
-//        System.out.println(roles);
-    }
+
 }

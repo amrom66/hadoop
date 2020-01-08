@@ -3438,7 +3438,7 @@
   </property>
   <property>
     <name>hive.security.authorization.createtable.user.grants</name>
-    <value>ljbao,root:ALL</value> 
+    <value /> 
     <description>
       the privileges automatically granted to some users whenever a table gets created.
       An example like "userX,userY:select;userZ:create" will grant select privilege to userX and userY,
@@ -3456,7 +3456,7 @@
   </property>
   <property>
     <name>hive.security.authorization.createtable.role.grants</name>
-    <value>admin,public:ALL</value>
+    <value />
     <description>
       the privileges automatically granted to some roles whenever a table gets created.
       An example like "roleX,roleY:select;roleZ:create" will grant select privilege to roleX and roleY,
@@ -3465,7 +3465,7 @@
   </property>
   <property>
     <name>hive.security.authorization.createtable.owner.grants</name>
-    <value>ALL</value>
+    <value>select,update,insert,delete</value>
     <description>
       The privileges automatically granted to the owner whenever a table gets created.
       An example like "select,drop" will grant select and drop privilege to the owner
